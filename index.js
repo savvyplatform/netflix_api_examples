@@ -10,16 +10,25 @@ let yargs = require("yargs")
   createTicket();
 }).command("createPost", "create a supporting post", function (yargs) {
   createPost(yargs.argv.ticketId);
+  yargs.option('ticketId', {
+    demandOption: true,
+    describe: 'ticket id'
+  })
 }).command("ticketState", "check supporting ticket's state", function (yargs) {
   checkTicketState(yargs.argv.ticketId);
+  yargs.option('ticketId', {
+    demandOption: true,
+    describe: 'ticket id'
+  })
 }).command("postState", "check supporting post's state", function (yargs) {
   checkPostState(yargs.argv.ticketId);
+  yargs.option('ticketId', {
+    demandOption: true,
+    describe: 'ticket id'
+  })
 }).option('token', {
   demandOption: true,
   describe: 'access token'
-}).option('ticketId', {
-  demandOption: false,
-  describe: 'ticket id'
 });
 
 yargs.help().argv;
@@ -33,7 +42,7 @@ async function createTicket(){
     const result = await request.post({
       uri: `${config.savvy_api_url}/supporting_tickets`,
       headers: {
-        'authorization': `Bearer ${config.token}`,
+        'authorization': `Bearer ${yargs.argv.token}`,
         'Content-Type' : 'application/json'
       },
       body:{
