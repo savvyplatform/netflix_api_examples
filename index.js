@@ -60,8 +60,9 @@ async function createTicket(){
   }catch(e){
     if (!e.error || !e.error.error) throw e
     const err = e.error.error
+    console.log(err);
     if (err.name === 'conflict_error'){
-      console.warn(`use existing creative: ${err.conflict_id}`)
+      console.warn(`ticket with the same subject exist, ticketid: ${err.conflict_id}`)
       ticket.id = err.conflict_id
     }else{
       console.log(err)
