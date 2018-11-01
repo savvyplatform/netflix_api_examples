@@ -1,5 +1,5 @@
 
-This is examples of how to use netflix API.
+Examples of Savvy API usage specifically for Netflix
 
 ```
 create a ticket 
